@@ -13,6 +13,9 @@ pipeline {
         string (name: 'IMAGE_TAG',
                 description: "Specify Image Tag",
                 defaultValue: '')
+        string (name: 'POLICY_NUM',
+                description: "Specify Policy",
+                defaultValue: '')        
     }
 
     stages {
@@ -27,7 +30,8 @@ pipeline {
                 echo 'Scanning image ...'
                 sh "curl -L https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64 -o lw-scanner"
                 sh "chmod +x lw-scanner"
-                sh "./lw-scanner image evaluate ${IMAGE_NAME} ${IMAGE_TAG} --build-id ${BUILD_ID}"
+                sh "./lw-scanner image evaluate ${IMAGE_NAME} ${IMAGE_TAG} --build-id ${BUILD_ID} --critical-violation-exit-code 2
+"
             }
         }
     }
