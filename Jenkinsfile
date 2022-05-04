@@ -30,7 +30,7 @@ pipeline {
                 echo 'Scanning image ...'
                 sh "curl -L https://github.com/lacework/lacework-vulnerability-scanner/releases/latest/download/lw-scanner-linux-amd64 -o lw-scanner"
                 sh "chmod +x lw-scanner"
-                sh "./lw-scanner image evaluate lacework/lacework-proxy-scanner 0.2.10 --fixable --fail-on-violation-exit-code 1 --save --exceptions --policy --registry index.docker.io"
+                sh "./lw-scanner image evaluate ${IMAGE_NAME} ${IMAGE_TAG} --fixable --fail-on-violation-exit-code 1 --save --exceptions --policy --registry ${IMAGE_REPO}"
             }
         }
     }
